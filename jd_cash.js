@@ -30,6 +30,7 @@ let helpAuthor = false;
 const randomCount = $.isNode() ? 20 : 5;
 const inviteCodes = [
   `cUhlZeS0YP4n-A@IBzhzVhk5kPze_iBnqWrdw@f1Nqb-uzbw@eU9Ya-i3YfomojjUyCAQ1A@eU9YMZTDEr5asTCruTpm@ZEdtK6SyZ_wk`
+]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
