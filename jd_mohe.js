@@ -51,7 +51,7 @@ $.shareId = [];
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
-      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1]);
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
       $.index = i + 1;
       $.isLogin = true;
       $.nickName = '';
@@ -96,7 +96,7 @@ $.shareId = [];
   for (let v = 0; v < cookiesArr.length; v++) {
     cookie = cookiesArr[v];
     $.index = v + 1;
-    $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1]);
+    $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
     console.log(`\n\n自己账号内部互助`);
     for (let item of $.shareId) {
       console.log(`账号 ${$.index} ${$.UserName} 开始给 ${item}进行助力`)
@@ -495,14 +495,14 @@ function shareUrl() {
           $.shareId.push(data['data']);
           console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的${$.name}好友互助码】${data['data']}\n`);
           console.log(`此邀请码一天一变化，旧的不可用`)
-          await $.http.get({url: `https://code.c-hiang.cn/autocommit/mohe/insert/${data['data']}`, timeout: 10000}).then((resp) => {
+          $.http.get({url: `https://code.c-hiang.cn/autocommit/mohe/insert/${data['data']}`, timeout: 30000}).then((resp) => {
             // console.log('resp', resp)
             if (resp.statusCode === 200) {
               try {
                 let { body } = resp;
                 body = JSON.parse(body);
                 if (body['code'] === 200) {
-                  console.log(`\n邀请码【${data['data']}】提交成功\n`)
+                  console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的${$.name}好友互助码】${data['data']}提交成功\n`)
                 } else if (body['code'] === 400) {
                   // console.log(`邀请码 【${data['data']}】 已存在\n`)
                 } else {
